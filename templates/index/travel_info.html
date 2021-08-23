@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- CSS 스타트 -->
+{% block style %}
+<<!-- CSS는 따로 빼지 마시고 이쪽에 따로 작성하셔도 됩니다. -->>
+
+{% endblock %}
+<!-- CSS 끝 -->
+<!-- 본문내용 스타트 -->
+{% block content %}
+<br>
+<div class="container my-1">
+        <div class="card">
+            <div id ="carouselCon" class="carousel slide w-auto mx-auto" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'img_main/1.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img_main/2.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img_main/3.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img_main/4.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <a class="carousel-control-prev " href="#carouselCon" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next " href="#carouselCon" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>  <!-- 메인 화면 사진 -->
+          </div>
+        </div>
+</div>
+<div class="container my-1">
+
+    <div class="text-center">
+        <h2 class="my-5"><i class="fas fa-map-pin fa-lg"></i> 주변 여행지 정보</h2>
+    </div>
+
+    <div class="container-fluid">
+        <div class="card">
+          <div class="card-body" style="text-align: center;">
+              <h3><strong>파라다이스 펜션 주변의 가볼만한 여행지를 소개드립니다.</strong></h3>
+<br>
+              <p>해당 버튼을 누르면 상세 설명으로 넘어갑니다.</p>
+                <a href="#num1"><button type="button" class="btn btn-info">주천강</button></a>
+                <a href="#num2"><button type="button" class="btn btn-info">치악산</button></a>
+                <a href="#num3"><button type="button" class="btn btn-info">대관령</button></a>
+                <a href="#num4"><button type="button" class="btn btn-info">강릉</button></a>
+                <a href="#num5"><button type="button" class="btn btn-info">오대산</button></a>
+              <br><br>
+                <a href="#num6"><button type="button" class="btn btn-primary">웰리힐리파크</button></a>
+                <a href="#num7"><button type="button" class="btn btn-primary">웰리힐리워터파크</button></a>
+                <a href="#num8"><button type="button" class="btn btn-primary">횡성루지체험</button></a>
+                <a href="#num9"><button type="button" class="btn btn-primary">정선레일바이크</button></a>
+              <br><br>
+                <a href="#num10"><button type="button" class="btn btn-danger">횡성 한우축제</button></a>
+                <a href="#num11"><button type="button" class="btn btn-danger">평창 송어축제</button></a>
+                <a href="#num12"><button type="button" class="btn btn-danger">대관령 눈꽃축제</button></a>
+          </div>
+        </div>
+<br>
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <div class="card" id="num1">
+                    <div class="card-header">
+                        <img src="{% static 'travel/nt_01.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="주천강">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">주천강</h5>
+                      <p class="card-text">
+                          주천강은 강원도 평창군, 횡성군의 태기산에서 발원하여 영원군으로 흐르는 95km의 강입니다. <br>
+                          버들치, 어름치, 쉬리등 어자원이 풍부하여 피서지, 낚시터로 인기를 끌고 있습니다.
+                          주천강은 맑고 풍부한 물과 천혜의 기암괴석이 절묘하게 어우러져 절경을 연출하고 있습니다.<br>
+                          하류의 요선정이 있는 절벽이 특히 절경으로 꼽히는 곳입니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num2">
+                    <div class="card-header">
+                        <img src="{% static 'travel/nt_02.png' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="치악산">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">치악산</h5>
+                      <p class="card-text">
+                          강원도의 교통요지인 원주시에 인접한 치악산국립공원은 우리나라의 등줄기인 태백산맥의 오대산에서
+                          서남향으로 분기되어 매화산, 천지봉이 위치하며, 연접한 비로봉은 치악산국립공원의 최고봉으로
+                          향로봉과 남대봉까지 해발 1,000m이상의 준봉들로 연결되는 대표적인 경관지를 형성하고 있습니다. <br>
+                          치악산의 경관자원으로는 구룡계곡, 부곡계곡, 금대계곡 등 아름다운 계곡과 구룡소, 세렴폭포 등의 명소가 곳곳에 산재해 ...
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<br>
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <div class="card" id="num3">
+                    <div class="card-header">
+                        <img src="{% static 'travel/nt_03.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="대관령">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">대관령 하늘목장</h5>
+                      <p class="card-text">
+                          1974년 설립된 대관령 하늘 목장은 우리나라의 대표적인 기업목장으로
+                          여의도 크기의 약 4배에 달하는 1,000 만 제곱미터 규모의 거대한 목장입니다. <br>
+                          홀스타인 젖소와 한우를 초 현대식 시설과 방목을 통한 친환경 생태축산 방식으로 사용하고 있습니다.
+                          숲과 개울, 나무 등 목장의 자연환경과 세계적으로도 보기 드문 고원 초지의 생태계가 완벽하게 보존되어있습니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num4">
+                    <div class="card-header">
+                        <img src="{% static 'travel/nt_04.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="강릉">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">강릉 경포대/주문진</h5>
+                      <p class="card-text">
+                          강릉에는 주문진, 연곡, 사천, 안인, 등명, 옥계등의 해수욕장이 있으며
+                          관동팔경의 하나인 경포대, 오죽헌, 객사문등 많은 관광자원이 있습니다. <br>
+                          주문진은 백두대간 중 하나인 오대산과 접해있으며 강릉 최북단의 해변인 주문진 해변에는 많은 피서객이 찾는 곳입니다.
+                          청정동해안에서 잡아 올린 싱싱한 생선과 해산물을 판매하고 있는 주문진항이 있습니다.
+                          경포대는 관동팔경의 하나로 경포호수 북쪽 언덕에 있는 누각입니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<br>
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <div class="card" id="num5">
+                    <div class="card-header">
+                        <img src="{% static 'travel/nt_05.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="오대산">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">오대산 월정사</h5>
+                      <p class="card-text">
+                          신라 선덕여왕 14년(서기645년) 자장율사가 이곳을 문수보살이 머무는 성지로 생각하고
+                          창건하였다는 월정사는 대한 불교 조계종 제4교구 불사로서, 불교 문화의 진수를 그대로 보여주는 거찰입니다. <br>
+                          또한 월정사 주변에는 약 1km 에 걸친 500년 이상 수령의 전나무 숲이 유명하며,
+                          이곳 전나무 숲속을 거닐면 월정사만이 가지고 있는 운치를 느낄 수 있습니다.
+                          월정사 경내에는 오대산과 고려시대 불교문화의 진수를 볼 수 있습니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num6">
+                    <div class="card-header">
+                        <img src="{% static 'travel/am_01.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="웰리힐리">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">웰리힐리파크</h5>
+                      <p class="card-text">
+                          강원도 횡성 무공해 청정 지대인 술이봉 일대 486만㎡ 부지에 조성된 웰리힐리파크는
+                          사계절 각각의 특색있는 아름다움과 수려한 자연 속에서 차원 높은 휴식의 편안함을 즐기실 수 있습니다.<br>
+                          청태산자연휴양림, 치악산국립공원 등 천혜의 자연환경이 인접한 최적 의 입지 조건을 갖추고 있습니다.
+                          스키장, 골프장, 호텔식 콘도미니엄, 유스호스텔등을 갖춘 도시 근교형 사계절 종합 휴양지입니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<br>
+            <div class="container">
+              <div class="row">
+                <div class="col-6">
+                  <div class="card" id="num7">
+                    <div class="card-header">
+                        <img src="{% static 'travel/am_02.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="웰리힐리">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">웰리힐리 워터파크</h5>
+                      <p class="card-text">
+                          웰리힐리파크 워터플래닛는 강원도 횡성 무공해 청정 지대에 12,000평 규모의
+                          지구에서 볼 수 없었던 물의 행성에서 만나는 새로운 스릴과 즐거움이 가득한 곳으로
+                          물, 공기, 바람, 시설 모든것이 깨끗한 우주신상 워터파크입니다.<br>
+                          실내외  총 10종의 어트렉션 및 7개의 스파존과 다양한 부대시설과 휴식공간까지 잘 구비되어 있어
+                          가족단위 관광객들에게 사랑받고 있는 워터파크입니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num8">
+                    <div class="card-header">
+                        <img src="{% static 'travel/am_03.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="루지">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">횡성루지체험</h5>
+                      <p class="card-text">
+                          횡성루지체험장은 그동안 폐쇄되고 방치되었던 국도 42호선 전재-우천면 오원리 구간의 숲과
+                          자연 그대로의 모습을 살려 다양한 테마구간을 더한 코스로 완성되었습니다. <br>
+                          단일코스로는 세계 최장 길이인 2.4km 로 실제 도로를 이용하여 스피드를 즐길 수 있습니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num9">
+                    <div class="card-header">
+                        <img src="{% static 'travel/am_04.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="레일">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">정선 레일바이크</h5>
+                      <p class="card-text">
+                          정선선의 종착역인 구절리역에서 아우라지역까지 총 7.2km 구간을 운행하는 레일바이크는
+                          자연의 향기와 국내 최고의 비경을 동시에 감상할 수 있으며,
+                          구절리역에서는 폐객차를 개조하여 2마리의 여치가 어우러진 모습을 형상화한
+                          카페 ‘여치의꿈’이 관광객을 맞이합니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num10">
+                    <div class="card-header">
+                        <img src="{% static 'travel/fas_01.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="한우">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">횡성한우축제</h5>
+                      <p class="card-text">
+                          횡성은 전통적인 한우의 고장이 예부터 4대 우시장의 하나인 강원도 횡성한우시장이 자리하고 있습니다. <br>
+                          매년 가을 강원도 횡성군 섬강 일대에서 5일간 횡성한우축제가 열려 횡성 한우의 우수성을 널리 알리고 있습니다.
+                          축제기간동안 횡성한우고기를 전시/판매하며 셀프음식점과 한우 시식회, 한우 품평회, 한우요리체험 등이 열립니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num11">
+                    <div class="card-header">
+                        <img src="{% static 'travel/fas_02.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="송어">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">평창송어축제</h5>
+                      <p class="card-text">
+                          우리 선조들의 삶의 핍박을 축제로 승화시켜 눈과 얼음, 송어가 함께하는
+                          겨울이야기라는 주제로 매년 12월말부터 1월말까지 평창송어축제 한마당이 펼쳐집니다. <br>
+                          얼음위에서 보면 오대천의 노니는 어류가 투명하게 보이는 가운데 송어 낚시의 짜릿한 손맛을 느끼며
+                          다양한 겨울 체험행사와 함께 진정한 겨울축제의 즐거움을 느낄 수 있습니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card" id="num12">
+                    <div class="card-header">
+                        <img src="{% static 'travel/fas_03.jpg' %}"
+                             style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="눈꽃">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">대관령 눈꽃축제</h5>
+                      <p class="card-text">
+                          한국에서 최초로 개최된 한국 고유의 전통 겨울축제로,
+                          1999년 문화관광부로부터 한국 최고 전통의 10대 겨울문화관광축제 가운데 하나로 지정되었습니다.<br>
+                          축제기간에는 이색적인 국제 알몸 마라톤대회와 초대형 눈조각전, 세계의 눈조각 전시 및 시연,
+                          아마추어 눈조각 만들기 대회, 대관령 눈꽃 등반, 백일장, 무대공연 및 노래자랑 등 공연·전시 행사와
+                          떡메치기, 전통 엿·활 만들기, 도자기 핸드페인팅, 향초두부·콩두부 만들기,
+                          스노 래프팅·오토바이·봅슬레이, 눈썰매·얼음썰매, 눈꽃열차 등 다양한 체험 프로그램이 운영됩니다.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<br>
+         <div class="card">
+          <div class="card-body" style="text-align: center;">
+              <strong>소개된 내용 이외에 필요한 서비스가 있다면 전화문의를 주시거나 본 홈페이지의 게시판에 문의 남겨주시면
+                  성심성의껏 답변해드리겠습니다.<br>늘 최선을 다하는 파라다이스 펜션이 되겠습니다. 방문해주셔서 감사합니다.</strong>
+          </div>
+        </div>
+<br>
+    </div>
+</div>
+<!-- 위의 내용은 일단은 기본형식으로 하고 아래부터 HTML 코드로 작성하시면 됩니다. -->
+
+{% endblock %}
+<!-- 본문내용 끝 -->

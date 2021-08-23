@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- CSS 스타트 -->
+{% block style %}
+    .table tr td{ border:1px solid #ccc;}
+    .table tr td:nth-of-type(1){ color:red }
+    .table tr td:nth-of-type(7){ color:blue }
+    .dates tr td{ height:2rem; font-size:0.85rem; height:240px; width:135px}
+    #today { background-color:rgba(255,0,0,0.1) ; border:2px solid red  }
+    .circle {width:10px ;height:10px ; border-radius:50%; margin: 5px ; font-size: 0.5rem;}
+    .reservate { background-color: green }
+    .rewait { background-color: orange }
+    .recomplet { background-color: gray }
+    .salewait { background-color: cornflowerblue }
+<!-- CSS는 따로 빼지 마시고 이쪽에 따로 작성하셔도 됩니다. -->
+{% endblock %}
+<!-- CSS 끝 -->
+<!-- 본문내용 스타트 -->
+{% block content %}
+<br>
+<div class="container my-1">
+  <div class="card">
+    <div class="container my-4">
+        <div class="d-flex justify-content-between border-bottom">
+            <div>
+                <strong>Pension Paradise 실시간예약안내</strong>
+            </div>
+            <div>
+                <ul class="nav list-unstyled">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index:reservating2' %}">예약달력</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index:reserve' %}">예약하기</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index:charge_info' %}">요금안내</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="my-3 d-flex justify-content-between">
+                <div class="d-flex align-text-top pt-2" style="font-size:0.75rem">
+                    <div class="circle reservate"></div>예약하기 <div class="circle rewait"></div>입금대기
+                    <div class="circle recomplet"></div>예약완료 <div class="circle salewait"></div>판매대기
+                </div>
+                <div class="YearMonth mr-3">
+                    <button class="prebtn"><i class="fas fa-caret-left"></i></button>
+                    <label class="YM"></label>
+                    <button class="nextbtn"><i class="fas fa-caret-right"></i></button>
+                </div>
+                <div>
+                    <button class="Now">오늘</button>
+                </div>
+        </div>
+        <table class="table my-3">
+            <thead>
+                <tr class="font-weight-bold">
+                    <td>일요일</td>
+                    <td>월요일</td>
+                    <td>화요일</td>
+                    <td>수요일</td>
+                    <td>목요일</td>
+                    <td>금요일</td>
+                    <td>토요일</td>
+                </tr>
+            </thead>
+            <tbody class="dates">
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+<form method="get" action="{% url 'index:reserve' %}" id="time">
+    <input type="hidden" id="year" name="year" value="{{year|default_if_none:'' }}">
+    <input type="hidden" id="month" name="month" value="{{month|default_if_none:'' }}">
+    <input type="hidden" id="date" name="date" value="{{date|default_if_none:'' }}">
+    <input type="hidden" id="roomN" name="roomN" value="{{roomN|default_if_none:'' }}">
+</form>
+{% endblock %}
+<!-- 본문내용 끝 -->
+{% block script %}
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script>
+        var Nowdate = new Date();
+        function renderCalender(date){
+            var Year = date.getFullYear();
+            var Month = date.getMonth();
+
+            var startdate = new Date(Year,Month,1)
+            var lastdate = new Date(Year,Month+1,0)
+
+            var tag="<tr>";
+            var cnt = 0;
+            for(i=0;i<startdate.getDay();i++){
+                tag+="<td></td>";
+                cnt++;
+            }
+
+            date_value= "<div style='color:black'>" +
+                    "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>101호</a></div>" +
+                    "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>102호(독채)</a></div>" +
+                   "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>201호(스파)</a></div>" +
+                    "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>202호(스파)</a></div>" +
+                   "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>301호(스파)</a></div>" +
+                    "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>302호(스파)</a></div>" +
+                    "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>303호(스파)</a></div>" +
+                    "<div class='d-flex my-1'><div class='circle reservate'></div><a href='#'>304호(스파)</a></div> </div>"
+
+            for(i = 1; i<=lastdate.getDate();i++){
+                if(cnt % 7 == 0) tag += "<tr>";
+                if(i == Nowdate.getDate() && date.getMonth() == Nowdate.getMonth())
+                    tag += "<td id='today' data-date="+i+">" + i+date_value + "</td>";
+                else if(date.getMonth() > Nowdate.getMonth() || i > Nowdate.getDate())
+                    tag += "<td data-date="+i+">" + i + date_value + "</td>";
+                else
+                    tag += "<td>"+i+"</td>"
+                cnt++;
+                if(cnt % 7 == 0)
+                    tag  += "</tr>";
+            }
+
+            $('.dates').html(tag);
+            $('.YM').html(Year + "년" +(Month+1) + "월");
+            if(Month == Nowdate.getMonth())
+                $('.prebtn').attr("disabled",true);
+            else
+            {
+                $('.prebtn').attr("disabled",false);
+            }
+            if(Month == Nowdate.getMonth()+3)
+                $('.nextbtn').attr("disabled",true);
+            else
+            {
+                $('.nextbtn').attr("disabled",false);
+            }
+        }
+        var pdate = Nowdate
+        renderCalender(pdate)
+
+        function ClickUpdate()
+        {
+            $('.dates a').on('click',function(){
+                console.log("D")
+                $('#date').val($(this).closest('td').data("date"))
+                $('#month').val(pdate.getMonth())
+                $('#year').val(pdate.getFullYear())
+                $('#roomN').val(($(this).text().substring(0,3)))
+                $('#time').submit();
+            })
+        }
+
+        $(function(){
+            $('.nextbtn').on('click',function(){
+                pdate = new Date(pdate.getFullYear(),pdate.getMonth()+1,1)
+                renderCalender(pdate);
+                ClickUpdate()
+
+            });
+            $('.prebtn').on('click',function(){
+                pdate = new Date(pdate.getFullYear(),pdate.getMonth(),0)
+                renderCalender(pdate);
+                ClickUpdate()
+            });
+            $('.Now').on('click',function(){
+                renderCalender(Nowdate);
+                pdate=Nowdate;
+                ClickUpdate()
+            })
+            ClickUpdate()
+        });
+    </script>
+{% endblock %}

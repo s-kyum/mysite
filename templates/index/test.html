@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- CSS 스타트 -->
+{% block style %}
+<<!-- CSS는 따로 빼지 마시고 이쪽에 따로 작성하셔도 됩니다. -->>
+
+{% endblock %}
+<!-- CSS 끝 -->
+<!-- 본문내용 스타트 -->
+{% block content %}
+
+    <h3>Fade effect</h3>
+        <ul class="fade">
+            <li>Hello</li>
+            <li>I am mahdi khaksar from iran</li>
+            <li>I am designer and programmer at progpars.com </li>
+            <li>www.ijquery.ir</li>
+        </ul>
+
+    <h3>Slide effect</h3>
+        <ul class="slide">
+            <li>Hello</li>
+            <li>I am mahdi khaksar from iran</li>
+            <li>I am designer and programmer at progpars.com </li>
+            <li>www.ijquery.ir</li>
+        </ul>
+
+    <h3>Typing effect</h3>
+        <ul class="typing">
+            <li>Hello</li>
+            <li>I am mahdi khaksar from iran</li>
+            <li>I am designer and programmer at progpars.com </li>
+            <li>www.ijquery.ir</li>
+        </ul>
+{% endblock %}
+<!-- 본문내용 끝 -->
+
+
+<!--자바스크립트 Start-->
+{% block script %}
+
+<script>
+$(document).ready(function() {
+//페이드
+    $('.fade').inewsticker({
+        speed       : 3000,
+        effect      : 'fade',
+        dir         : 'ltr',
+        font_size   : 13,
+        color       : '#fff',
+        font_family : 'arial',
+        delay_after : 1000
+    });
+//슬라이드
+    $('.slide').inewsticker({
+        speed       : 2500,
+        effect      : 'slide',
+        dir         : 'ltr',
+        font_size   : 13,
+        color       : '#fff',
+        font_family : 'arial',
+        delay_after : 1000
+    });
+//타이핑
+    $('.typing').inewsticker({
+        speed           : 100,
+        effect          : 'typing',
+        dir             : 'ltr',
+        font_size       : 13,
+        color           : '#fff',
+        font_family     : 'arial',
+        delay_after : 1000,
+
+    });
+});
+</script>
+<script src="{% static 'inewsticker/inewsticker.js' %}"></script>
+{% endblock %}
+<!--자바스크립트 End-->

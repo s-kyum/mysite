@@ -1,0 +1,966 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- CSS 스타트 -->
+{% block style %}
+  thead tr td{background-color:rgb(230,230,230)}
+  .pastday { color:gray !important}
+  .calender tr td:nth-of-type(1) button { color:red !important}
+  .calender tr td:nth-of-type(7) button { color:blue }
+  .dates tr td{padding:0.26rem 0.65rem; text-align:center}
+  table {border : 1px solid rgb(224,224,224)}
+  .border-0 th{ width:6rem ;height:2rem; vertical-align:top;}
+  .circle {width:10px ;height:10px ; border-radius:50%; margin: 5px ; font-size: 0.5rem; margin:0.2rem}
+  .reservate { background-color: green }
+  .rewait { background-color: orange }
+  .recomplet { background-color: gray }
+  .salewait { background-color: cornflowerblue }
+    .duration { color:black}
+    .paywindow { border:2px solid black}
+    .paywindow tr td{ width:10rem;height:5rem;}
+    .paywindow tr td:nth-of-type(2){ color:blue }
+    .result {color:red}
+    .resultwindow {border-style:none}
+    .resultwindow tr td{ width:15rem ; text-align:right; height:5rem ; font-weight:bold;font-size:1.2rem}
+
+<!-- CSS는 따로 빼지 마시고 이쪽에 따로 작성하셔도 됩니다. -->
+{% endblock %}
+<!-- CSS 끝 -->
+<!-- 본문내용 스타트 -->
+{% block content %}
+<br>
+<div class="container my-1">
+  <div class="card">
+    <div class="container my-4">
+        <div class=" d-flex justify-content-between border-bottom">
+                <div>
+                    <strong>Pension Paradise 실시간예약안내</strong>
+                </div>
+                <div>
+                    <ul class="nav list-unstyled">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index:reservating2'%}">예약달력</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index:reserve' %}">예약하기</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'index:charge_info'%}">요금안내</a></li>
+                    </ul>
+                </div>
+        </div>
+<br>
+    <div class="container">
+        <div class="h6 border-bottom py-1 font-weight-bolder">날자선택</div>
+    </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <div class="card">
+                <div class="card-body">
+
+                    <div class="w-50">
+                        <div class="my-3 d-flex justify-content-between">
+                            <div class="YearMonth">
+                                <button class="prebtn"><i class="fas fa-caret-left"></i></button>
+                                <label class="YM"></label>
+                                <button class="nextbtn"><i class="fas fa-caret-right"></i></button>
+                            </div>
+                            <div>
+                                <label class="today"></label>
+                            </div>
+                        </div>
+                        <table class="calender my-3 text-center">
+                            <thead>
+                                <tr class="font-weight-bold">
+                                    <td>일</td>
+                                    <td>월</td>
+                                    <td>화</td>
+                                    <td>수</td>
+                                    <td>목</td>
+                                    <td>금</td>
+                                    <td>토</td>
+                                </tr>
+                            </thead>
+                            <tbody class="dates"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card">
+                <div class="card-body">
+
+                    <div>
+                        <div class="text-center p-3" style="border-bottom:3px dashed gray;">
+                            선택일 <span class="selectdate">{{ year }}년 {{ month|add:1 }}월 {{ date }}일 일요일</span>
+                            <p><span class="seas">성수기</span>요일 요금이 적용됩니다</p>
+                        </div>
+                        <div class="p-3">
+                            <table class="border-0">
+                                <tr class="text-left">
+                                    <th>주소</th>
+                                    <td class="text-muted">강원 xx군 xx면 xx리666-5<br>강원 xx군 xx면 고원로xx번길 x-1 파다라이스 펜션</td>
+                                </tr>
+                                <tr>
+                                    <th>전화번호</th>
+                                    <td class="text-muted">010-xxxx-xxxx</td>
+                                </tr>
+                                <tr>
+                                    <th>결제방법</th>
+                                    <td class="text-muted">카드/무통장</td>
+                                </tr>
+                                <tr>
+                                    <th>기간안내</th>
+                                    <td class="text-muted">비수기 : 2021.08.01 ~ 2021.12.31<br>성수기 : 2021.07.17 ~ 2021.08.7<br>외 1개 기간<br><br></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<br>
+    <div class="container">
+        <div class="h6 border-bottom py-1 font-weight-bolder">객실선택</div>
+    </div>
+        <div id="101" class="d-inline-flex w-100 grandparent">
+            <input type="checkbox" data-name="101" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/101호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>101호(독채)(32평)</div>
+                <div>기준 4명/최대 4명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <div id="102" class="d-inline-flex w-100 border-top grandparent">
+            <input type="checkbox" data-name="102" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/102호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>102호(32평)</div>
+                <div>기준 4명/최대4명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <div id="201" class="d-inline-flex w-100 border-top grandparent">
+            <input type="checkbox" data-name="201" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/201호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>201호(10평)</div>
+                <div>기준 2명/최대 2명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <div id="202" class="d-inline-flex w-100 border-top grandparent">
+            <input type="checkbox" data-name="202" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/202호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>202호(10평)</div>
+                <div>기준 2명/최대 2명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <div id="301" class="d-inline-flex w-100 border-top grandparent">
+            <input type="checkbox" data-name="301" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/301호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>301호(22평)</div>
+                <div>기준 2명/최대 4명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <div id="302" class="d-inline-flex w-100 border-top grandparent">
+            <input type="checkbox" data-name="302" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/302호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>302호(22평)</div>
+                <div>기준 2명/최대 4명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <div id="303" class="d-inline-flex w-100 border-top grandparent">
+            <input type="checkbox" data-name="303" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/303호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>303호(15평)</div>
+                <div>기준 2명/최대 2명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <div id="304" class="d-inline-flex w-100 border-top grandparent">
+            <input type="checkbox" data-name="304" style="margin:5rem 3rem; width:1.5rem;height:1.5rem">
+            <div class="m-3" style="width:10rem ;height:10rem;background:url({% static 'reImg/304호.jpg'%}) no-repeat; background-size:auto 100%"></div>
+            <div class="pt-4" style="padding-right:8rem">
+                <div class="circle reservate d-inline-block"></div>예약완료
+                <div>304호(15평)</div>
+                <div>기준 2명/최대 2명</div>
+                <div class="price2"></div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    기간
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle duration" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">1박</div>
+                        <div class="dropdown-item">2박</div>
+                        <div class="dropdown-item">3박</div>
+                        <div class="dropdown-item">4박</div>
+                        <div class="dropdown-item">5박</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    성인
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle adult" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">4명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                        <div class="dropdown-item">1명</div>
+                        <div class="dropdown-item">2명</div>
+                        <div class="dropdown-item">3명</div>
+                        <div class="dropdown-item">4명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    아동
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle child" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <div class="text-center">
+                    유아
+                </div>
+                <div class="dropdown m-3">
+                    <div class="btn btn-outline-secondary dropdown-toggle baby" disabled type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">0명
+                    </div>
+                    <div class="dropdown-menu text-center">
+                        <div class="dropdown-item">0명</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5 text-center m-3">
+                즉시 결제
+                <div class="h5 price"></div>
+            </div>
+        </div>
+        <br><br>
+        <div class="container">
+            <div class="h6 border-bottom py-1 font-weight-bolder">결재안내</div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-6">
+              <div class="card" style="border: none;">
+                <div class="card-body">
+
+                    <table class="paywindow text-center">
+                        <tr>
+                            <td></td>
+                            <td>현장결제</td>
+                            <td>즉시결제</td>
+                        </tr>
+                        <tr>
+                            <td>객실 이용금액</td>
+                            <td>-</td>
+                            <td class="roompay">0원</td>
+                        </tr>
+                        <tr>
+                            <td>인원 추가금액</td>
+                            <td>0원</td>
+                            <td>0원</td>
+                        </tr>
+                        <tr class="border-top">
+                            <td>합계</td>
+                            <td>0원</td>
+                            <td class="result">0원</td>
+                        </tr>
+                        <tr>
+                            <td>최종 이용금액</td>
+                            <td></td>
+                            <td class="sum">0원</td>
+                        </tr>
+                    </table>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card" style="border: none;">
+                <div class="card-body">
+
+                    <table class="float-right resultwindow">
+                        <tr>
+                            <td>총 결제금액</td>
+                            <td class="roompay">0원</td>
+                        </tr>
+                        <tr>
+                            <td>입실 시 현장 결제 금액</td>
+                            <td style="color:red">0원</td>
+                        </tr>
+                        <tr>
+                            <td>지금 즉시 결제 금액</td>
+                            <td class="result" style="color:blue">0원</td>
+                        </tr>
+                    </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+<form method="get" action="{% url 'index:reserve' %}" id="time">
+    <input type="hidden" id="year" name="year" value="{{year|default_if_none:'' }}">
+    <input type="hidden" id="month" name="month" value="{{month|default_if_none:'' }}">
+    <input type="hidden" id="date" name="date" value="{{date|default_if_none:'' }}">
+    <input type="hidden" id="Selectroom" name="Selectroom" value="{{Sroom|default_if_none:'' }}">
+</form>
+{% endblock %}
+{% block script %}
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script>
+        var Nowdate = new Date();
+        var pdate;
+        var season;
+        let sum = 0;
+        let roomPrice = [0,0,0,0,0,0,0,0]
+        let roomBool = [false,false,,false,false,false,false,false,false]
+        let rooms = JSON.parse("{{room_js | escapejs }}")
+        var arrDayStr=['일','월','화','수','목','금','토']
+        var SeaStr={
+            "peak":"성수기","mid":"준성수기","off":"비수기"
+        }
+        if(($('#year').val() != 0 &&( $('#month').val() != 13) && $('#date') != 32))
+            pdate = new Date($('#year').val(),$('#month').val(),$('#date').val());
+        else
+            pdate = Nowdate;
+        function renderCalender(date){
+            var Year = date.getFullYear();
+            var Month = date.getMonth();
+
+            var startdate = new Date(Year,Month,1)
+            var lastdate = new Date(Year,Month+1,0)
+
+            var tag="<tr>";
+            var cnt = 0;
+            for(i=0;i<startdate.getDay();i++){
+                tag+="<td></td>";
+                cnt++;
+            }
+
+            for(i = 1; i<=lastdate.getDate();i++){
+                if(cnt % 7 == 0) tag += "<tr>";
+                if(i === date.getDate())
+                    tag += "<td><button id='select' class='btn btn-dark'>" + i + "</button></td>";
+                else if(date.getMonth() > Nowdate.getMonth() || i > Nowdate.getDate())
+                    tag += "<td><button class='btn btn-white'>" + i + "</button></td>";
+                else
+                    tag += "<td class='pastday'><button class='btn btn-white'>" + i + "</button></td>"
+                cnt++;
+                if(cnt % 7 == 0)
+                    tag  += "</tr>";
+            }
+
+            $('.dates').html(tag);
+            $('.YM').html(Year + "년" +(Month+1) + "월");
+            if(Month == Nowdate.getMonth())
+                $('.prebtn').attr("disabled",true);
+            else
+            {
+                $('.prebtn').attr("disabled",false);
+            }
+            if(Month == Nowdate.getMonth()+3)
+                $('.nextbtn').attr("disabled",true);
+            else
+            {
+                $('.nextbtn').attr("disabled",false);
+            }
+        }
+        renderCalender(pdate)
+        $('.duration').text('1박')
+        season=seasoncheck(pdate)
+        PriceUpdate()
+        $('.selectdate').text(" "+pdate.getFullYear()+"년 " +(pdate.getMonth()+1) + "월 " +pdate.getDate()+"일 "+ arrDayStr[pdate.getDay()])
+        $('.seas').text(SeaStr[season] +", " +arrDayStr[pdate.getDay()])
+        if($('#Selectroom').val() !== '000')
+        {
+            roomNumber = convertRN($('#Selectroom').val())
+            $('#'+$('#Selectroom').val()).find('input').prop("checked",true);
+            roomBool[roomNumber] =true;
+            Payupdate()
+        }
+
+        function pUpdate(){
+            $('.calender .btn').on('click',function(){
+                $('.duration').text('1박')
+                $('input[type="checkbox"]').prop("checked",false)
+                $('#select').removeClass('btn-dark')
+                $('#select').addClass('btn-white')
+                $('#select').removeAttr('id')
+                pdate.setDate($(this).text())
+                $(this).attr("id","select")
+                $(this).removeClass('btn-white')
+                $(this).addClass('btn-dark')
+                season = seasoncheck(pdate)
+                PriceUpdate()
+                PayReset()
+                $('.selectdate').text(" "+pdate.getFullYear()+"년 " +(pdate.getMonth()+1) + "월 " +pdate.getDate()+"일 "+ arrDayStr[pdate.getDay()])
+                $('.seas').text(SeaStr[season] +", " +arrDayStr[pdate.getDay()])
+            })
+        }
+
+        function PriceUpdate(){
+            for(var room in rooms){
+                var select = '#'+rooms[room].roomnumber;
+                var price = durationCalc(new Date(pdate),1,room);
+                $(select).find('.price').text(price+"원");
+                $(select).find('.price2').text(price+"원");
+                roomPrice[room] = price;
+            }
+        }
+
+        function seasoncheck(date)
+        {
+            if(date >= new Date(date.getFullYear(),"6","17") && date <= new Date(date.getFullYear(),"7","7"))
+                return "peak";
+            else if((date >= new Date(date.getFullYear(),"6","3") && date <= new Date(date.getFullYear(),"6","16"))
+            || (date >= new Date(date.getFullYear(),"7","8") && date <= new Date(date.getFullYear(),"7","28")))
+                return "mid";
+            else
+                return "off";
+
+        }
+
+        function PayReset(){
+            roomPrice.fill(0)
+            roomBool.fill(false);
+            Payupdate()
+        }
+
+        function Payupdate(){
+            sum = 0;
+            for(var i = 0 ; i < 8 ;i++)
+            {
+                if(roomBool[i]) sum += roomPrice[i]
+            }
+            $('.roompay').text(sum+"원")
+            $('.result').text(sum+"원")
+            $('.sum').text(sum+"원")
+        }
+
+        function durationCalc(tmpdate,dur,roomNum){
+            var total= rooms[roomNum][seasoncheck(tmpdate)]
+            tmpdate.setDate(tmpdate.getDate()+1)
+            for(var i=1 ; i < dur ; i++){
+                total += rooms[roomNum][seasoncheck(tmpdate)]
+            }
+            delete tmpdate
+            return total;
+        }
+
+        function convertRN(roomN)
+        {
+            if(roomN === "101")
+                return 0;
+            else if(roomN === "102")
+                return 1;
+            else if(roomN === "201")
+                return 2;
+            else if(roomN === "202")
+                return 3;
+            else if(roomN === "301")
+                return 4;
+            else if(roomN === "302")
+                return 5;
+            else if(roomN === "303")
+                return 6;
+            else if(roomN === "304")
+                return 7;
+        }
+
+        $(function(){
+            pUpdate()
+            $('.seas').text(SeaStr[season] +", " +arrDayStr[pdate.getDay()])
+
+            $('.seas').text()
+            $('.nextbtn').on('click',function(){
+                pdate = new Date(pdate.getFullYear(),pdate.getMonth()+1,1)
+                renderCalender(pdate);
+                pUpdate()
+            });
+            $('.prebtn').on('click',function(){
+                pdate = new Date(pdate.getFullYear(),pdate.getMonth(),0)
+                renderCalender(pdate);
+                pUpdate()
+            });
+
+            $('.dropdown-item').on('click',function(){
+                var text = $(this).text();
+                var roomn = $(this).parents('.grandparent').attr('id')
+                $(this).parent().parent().children('.btn').text(text)
+                var pay = durationCalc(pdate,text[0]*1,convertRN(roomn))
+                $(this).parents('.grandparent').find('.price').text(pay+"원")
+                roomPrice[convertRN(roomn)] = pay;
+                Payupdate()
+            });
+
+            $('input').on('click',function(){
+                var rn = $(this).parents('.grandparent').attr('id')
+                pay =  $(this).parents('.grandparent').find('.price').text()
+                pay = pay.substring(0,pay.length-1)*1
+                if($(this).prop("checked"))
+                {
+                    roomBool[convertRN(rn)] = true;
+                    roomPrice[convertRN(rn)] = pay;
+                }
+                else
+                    roomBool[convertRN(rn)] = false;
+                Payupdate()
+            })
+        });
+    </script>
+{% endblock %}
+<!-- 본문내용 끝 -->

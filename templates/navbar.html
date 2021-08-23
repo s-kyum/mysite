@@ -1,0 +1,87 @@
+{% load static %}
+<div class="navigation">
+
+    <!--네비게이션 바-->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border-bottom">
+
+        <!-- 왼쪽 부분 -->
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" style="padding-left:50px;">
+                    <a class="nav-link" href="{% url 'index:introduce' %}"><strong>펜션소개</strong></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index:room' %}"><strong>객실정보</strong></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index:travel' %}"><strong>여행지정보</strong></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index:fac' %}"><strong>주변편의시설</strong></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'psbo:board' %}"><strong>자유게시판</strong></a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- 왼쪽 부분 끝 -->
+
+        <!--로고 부분-->
+        <div>
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar" href="{% url 'index:index' %}">
+            <img src="{% static 'pension_logo.jpg' %}" width="120px" height="50px" alt="로고"
+            style="border: 2px solid black; border-radius: 10px; "></a>
+
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav-R"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        </div>
+        <!--로고 부분-->
+
+        <!-- 오른쪽 부분 -->
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNav-R">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index:reservation' %}"><strong>예약안내</strong></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index:reservating2' %}"><strong>실시간예약</strong></a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index:location' %}"><strong>오시는길</strong></a>
+                </li>
+
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'common:logout' %}">
+                        <strong>'{{ user.username }}'님(로그아웃)</strong></a>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'common:login' %}"><strong>로그인</strong></a>
+                    {% endif %}
+                </li>
+
+                <li class="nav-item" style="padding-right:50px;">
+                    <a class="nav-link" href="{% url 'common:signup' %}"><strong>회원가입</strong></a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- 오른쪽 부분 끝 -->
+
+    </nav>
+
+</div>

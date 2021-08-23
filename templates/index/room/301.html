@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- CSS 스타트 -->
+{% block style %}
+<!-- CSS는 따로 빼지 마시고 이쪽에 따로 작성하셔도 됩니다. -->
+
+{% endblock %}
+<!-- CSS 끝 -->
+<!-- 본문내용 스타트 -->
+{% block content %}
+<br>
+<div class="container my-1">
+        <div class="card">
+            <div id ="carouselCon" class="carousel slide w-auto mx-auto" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'img_main/1.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img_main/2.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img_main/3.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="{% static 'img_main/4.jpg' %}" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <a class="carousel-control-prev " href="#carouselCon" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next " href="#carouselCon" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>  <!-- 메인 화면 사진 -->
+          </div>
+        </div>
+</div>
+<br>
+<div class="container my-1">
+
+    <div class="container-fluid">
+        <div class="card">
+          <div class="card-body" style="text-align: center;">
+            <h2 class="my-2"><i class="fas fa-home fa-lg"></i> 301호(월풀)</h2>
+              예약은 예약정보 페이지를 참고하시길 바랍니다.
+              <p><strong>아래 해당 버튼을 누르면 상세 설명 페이지로 넘어갑니다.</strong></p>
+                <a href="{% url 'index:room101' %}"><button type="button" class="btn btn-primary">101호</button></a>&nbsp;&nbsp;
+                <a href="{% url 'index:room101' %}"><button type="button" class="btn btn-secondary">102호(독채)</button></a>&nbsp;&nbsp;
+                <a href="{% url 'index:room201' %}"><button type="button" class="btn btn-success">201호(월풀)</button></a>&nbsp;&nbsp;
+                <a href="{% url 'index:room201' %}"><button type="button" class="btn btn-danger">202호(월풀)</button></a>&nbsp;&nbsp;
+                <a href="{% url 'index:room301' %}"><button type="button" class="btn btn-warning">301호(월풀)</button></a>&nbsp;&nbsp;
+                <a href="{% url 'index:room301' %}"><button type="button" class="btn btn-info">302호(월풀)</button></a>&nbsp;&nbsp;
+                <a href="{% url 'index:room301' %}"><button type="button" class="btn btn-light">303호(월풀)</button></a>&nbsp;&nbsp;
+                <a href="{% url 'index:room301' %}"><button type="button" class="btn btn-dark">304호(월풀)</button></a>
+          </div>
+        </div>
+    </div>
+<br>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+
+            <div class="card-body">
+              <h5 class="card-title">구조와 정보</h5>
+              <p class="card-text">
+                  73㎡ / 22평<br>
+                  스파,개별바베큐<br>
+                  <br>
+                  <strong>기준 2명 ~ 최대 4명</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+
+            <div class="card-body">
+              <h5 class="card-title">입·퇴실 안내</h5>
+              <p class="card-text">
+                입실 시간 : 오후 3:00 ~ 오후 9:00<br>
+                퇴실 시간 : 오전 11:00<br>
+                <br>
+                <strong>오후 9:00이후 입실시에는 사전에 꼭 연락 바랍니다</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<br>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header card text-center">
+                <img src="{% static 'room/301_main.jpg' %}"
+                     style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="301">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header">
+                <img src="{% static 'room/301_1.jpg' %}"
+                     style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="301">
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header">
+                <img src="{% static 'room/301_2.jpg' %}"
+                     style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="301">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header">
+                <img src="{% static 'room/301_3.jpg' %}"
+                     style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="301">
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header">
+                <img src="{% static 'room/301_4.jpg' %}"
+                     style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="301">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header">
+                <img src="{% static 'room/301_5.jpg' %}"
+                     style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="301">
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header">
+                <img src="{% static 'room/301_6.jpg' %}"
+                     style="max-width: 100%; height: auto; display: block; border-radius: 10px;" alt="301">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+
+<!-- 위의 내용은 일단은 기본형식으로 하고 아래부터 HTML 코드로 작성하시면 됩니다. -->
+
+{% endblock %}
+<!-- 본문내용 끝 -->
+
+{% block script %}
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+{% endblock%}
